@@ -1,0 +1,32 @@
+***************************************
+https://github.com/ishaqmdgcp/jar.git
+
+
+FROM openjdk:12-alpine
+COPY ./target/TEST-0.0.1-SNAPSHOT.jar /TEST-0.0.1-SNAPSHOT.jar
+CMD ["java","-jar", "TEST-0.0.1-SNAPSHOT.jar"]
+
+docker build -t siva_jar:01 .
+
+docker images
+
+docker login
+docker run --name "siva_jar_app" -p 80:8080 siva_jar:01
+
+docker volume  create  --name vol3 
+
+docker run --mount source=vol3, target=/home  siva_jar:01
+
+docker run -d --name jartest1 --mount source=vol3,target=/home siva_jar:01
+
+docker ps -a
+
+docker exec -it <containerID> /bin/sh
+
+cd home
+
+touch sample.txt
+echo "This is Ishaq Team" >sample.txt
+cat simple.txt
+
+docker volume ls
